@@ -61,6 +61,16 @@ function crystal(x, y, h, w) {
   vertex(x + w / 2, y - h * 0.6);
   endShape();
 
+//bubbles
+  for (let i = 0; i < 15; i++) {
+    let t = frameCount * 0.01;
+    let x = noise(i * 10, t) * width;
+    let y = noise(i * 10 + 100, t) * height;
+    let size = 10 + noise(i * 10 + 200, t) * 25;
+    fill(100, 200, 255, 50);
+    circle(x, y, size)
+  }
+
 //ventral fins outline
   let swim = sin(frameCount * 0.05) * 5;
     strokeWeight(10)
@@ -169,9 +179,11 @@ function crystal(x, y, h, w) {
   circle(pupilX2, pupilY2, 5);
 
   //magical
+  let r1=map(mouseX, 0, width, 0, 255)
+  let g1=map(mouseY, 0, height, 0, 255)
   let size = map(d, 0, 200, 150, 70);
   size = constrain(size, 70, 150);
-  fill(255, 104, 153, 100);
+  fill(r1, g1, 153, 100);
   noStroke();
   circle(495, 110, size);
 
