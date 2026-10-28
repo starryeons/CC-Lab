@@ -7,6 +7,12 @@ CCLaboratories Biodiversity Atlas
 
 let color1;
 let color2;
+let r3=0
+let g3=0
+let b3=0
+let r2=255
+let g2=255
+let b2=255
 
 function setup() {
   createCanvas(800, 500);
@@ -37,14 +43,14 @@ function draw() {
     circle(800, 0, dia);
   }
   strokeWeight(2);
-  stroke(255,0,127, 150);
+  stroke(255, 0, 127, 150);
   for (let i = 0; i < 40; i++) {
     let dia = i * 50;
     noFill();
     circle(800, 0, dia);
   }
   //foreground crystals
-    stroke(255, 255, 255, 50)
+  stroke(255, 255, 255, 50);
   for (let x = 0; x < width; x += 20) {
     let h = noise(x * 0.02, 20) * 160;
     let c = lerpColor(color1, color2, noise(x * 0.02 + 100));
@@ -61,24 +67,24 @@ function crystal(x, y, h, w) {
   vertex(x + w / 2, y - h * 0.6);
   endShape();
 
-//bubbles
+  //bubbles
   for (let i = 0; i < 15; i++) {
     let t = frameCount * 0.01;
     let x = noise(i * 10, t) * width;
     let y = noise(i * 10 + 100, t) * height;
     let size = 10 + noise(i * 10 + 200, t) * 25;
     fill(100, 200, 255, 50);
-    circle(x, y, size)
+    circle(x, y, size);
   }
 
-//ventral fins outline
+  //ventral fins outline
   let swim = sin(frameCount * 0.05) * 5;
-    strokeWeight(10)
-  stroke(255,255,255,100)
-  line(190, 270, 110 + swim, 280)
-   line(190,270,150+swim,300)
-  line(190,270,90+swim,310)
-  
+  strokeWeight(10);
+  stroke(255, 255, 255, 100);
+  line(190, 270, 110 + swim, 280);
+  line(190, 270, 150 + swim, 300);
+  line(190, 270, 90 + swim, 310);
+
   //creature body
   noStroke();
   fill(153, 204, 255);
@@ -99,11 +105,29 @@ function crystal(x, y, h, w) {
   line(290, 250, 240, 260);
   line(290, 250, 240, 240);
 
-  //creature outer shell and side fin
+  //creature outer shell
   fill(153, 204, 255, 150);
-  stroke(255,255,255,100)
-  strokeWeight(5)
+  stroke(255, 255, 255, 100);
+  strokeWeight(5);
   triangle(100, 250, 500, 150, 500, 350);
+
+//clipping
+  push()
+clip(() => {triangle(100, 250, 500, 150, 500, 350);});
+noStroke();
+fill(r3, g3, b3);
+r3 = lerp(r3, 255, 0.01);
+g3 = lerp(g3, 255, 0.01);
+b3 = lerp(b3, 255, 0.01);
+let freq = frameCount * 0.99;
+let amp = random(0, 100);
+let sinValue = sin(freq) * amp;
+let p = 100+frameCount;
+let m = 250 + sinValue;
+circle(p, m, 10);
+pop();
+
+  //side fin
   stroke(255, 255, 255, 100);
   strokeWeight(5);
   fill(153, 204, 255);
@@ -179,8 +203,8 @@ function crystal(x, y, h, w) {
   circle(pupilX2, pupilY2, 5);
 
   //magical
-  let r1=map(mouseX, 0, width, 0, 255)
-  let g1=map(mouseY, 0, height, 0, 255)
+  let r1 = map(mouseX, 0, width, 0, 255);
+  let g1 = map(mouseY, 0, height, 0, 255);
   let size = map(d, 0, 200, 150, 70);
   size = constrain(size, 70, 150);
   fill(r1, g1, 153, 100);
@@ -219,11 +243,11 @@ function crystal(x, y, h, w) {
   endShape();
 
   //ventral fins
-  stroke(153, 204, 255)
-  strokeWeight(5)
+  stroke(153, 204, 255);
+  strokeWeight(5);
   line(190, 270, 110 + swim, 280);
-  line(190,270,150+swim,300)
-  line(190,270,90+swim,310)
+  line(190, 270, 150 + swim, 300);
+  line(190, 270, 90 + swim, 310);
 
   //antennae
   noFill();
@@ -279,7 +303,82 @@ function crystal(x, y, h, w) {
     endShape();
     pop();
   }
-
+  if (mouseIsPressed) {
+    noStroke();
+    fill(0);
+    rect(0, 0, 800); //black background
+    fill(104, 129, 155); //head fading in
+    circle(400, 250, 660);
+    fill(129, 154, 180);
+    circle(400, 250, 645);
+    fill(154, 179, 205);
+    circle(400, 250, 630);
+    fill(179, 204, 230);
+    circle(400, 250, 615);
+    fill(204, 229, 255); //actual head color
+    circle(400, 250, 600); //actual head
+    fill(190, 219, 267); //start of mouth/bottom lip
+    arc(400, 350, 500, 300, 0, PI);
+    fill(0);
+    arc(400, 335, 500, 290, 0, PI);
+    fill(190, 219, 267);
+    arc(400, 325, 500, 100, 0, PI);
+    fill(204, 229, 255);
+    arc(400, 310, 500, 100, 0, PI); //end of mouth/top lip shaping
+    fill(255, 0, 0); //text
+    textSize(30);
+    text("i see you", 350, 425);
+    fill(154, 179, 205); //eye shading
+    arc(200, 205, 200, 120, PI, 0);
+    arc(600, 205, 200, 120, PI, 0);
+    fill(179, 204, 230);
+    arc(200, 203, 200, 110, PI, 0);
+    arc(600, 203, 200, 110, PI, 0);
+    fill(255); //scleras
+    arc(200, 200, 190, 100, PI, 0);
+    arc(600, 200, 190, 100, PI, 0);
+    push(); //iris clipping mask
+    clip(() => {
+      arc(200, 200, 190, 100, PI, 0);
+    });
+    fill(0);
+    circle(200, 190, 130);
+    pop();
+    push();
+    clip(() => {
+      arc(600, 200, 190, 100, PI, 0);
+    });
+    fill(0);
+    circle(600, 190, 130);
+    pop();
+    noFill(); //mouth wrinkles
+    strokeWeight(3);
+    stroke(170, 199, 247);
+    beginShape();
+    splineVertex(170, 320);
+    splineVertex(125, 330);
+    splineVertex(125, 360);
+    endShape();
+    beginShape();
+    splineVertex(630, 320);
+    splineVertex(685, 330);
+    splineVertex(675, 360);
+    endShape();
+    beginShape(); //eyelids
+    splineVertex(300, 160);
+    splineVertex(270, 140);
+    splineVertex(200, 130);
+    splineVertex(150, 130);
+    splineVertex(120, 150);
+    endShape();
+    beginShape();
+    splineVertex(500, 160);
+    splineVertex(530, 140);
+    splineVertex(600, 130);
+    splineVertex(650, 130);
+    splineVertex(680, 150);
+    endShape();
+  }
   //multiply layer
   fill(0, 0, 102, 10);
   rect(0, 0, 800, 500);
