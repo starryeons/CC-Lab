@@ -1,42 +1,30 @@
-// original images
-let scannedImages = [];
-let croppedImages = [];
+let clownImg = [];
+let currentImage = 0;
 
 async function setup() {
-  createCanvas(800, 500);
+  createCanvas(400, 400);
 
-  // load all images first
-  const imagePromises = [];
-  for (let i = 0; i < 6; i++) {
-    imagePromises.push(loadImage("assets/image" + i + ".jpg"));
+  frameRate(5);
+  let promises = [];
+  for (let i = 1; i <= 20; i++) {
+    let filename = "asset/clown" + i + ".png";
+    promises.push(loadImage(filename));
   }
-  scannedImages = await Promise.all(imagePromises);
-
-  // erase background and crop images
-  // how to use: eraseBackground(imageArray, threshold);
-  eraseBackground(scannedImages, 10);
-
-  // crop parts of images
-  // how to use: crop(imageArray, x, y, width, height);
-  croppedImages = crop(scannedImages, 100, 15, 440, 330);
+  clownImg = await Promise.all(promises);
 }
 
 function draw() {
-  background(255);
+  background(90, 20, 75);
+  imageMode(CENTER);
 
-  // show the first image
-  image(scannedImages[0], 0, 0);
-
-  // show the cropped image
-  image(croppedImages[0], 0, 0, 40, 30);
-
-  // display the mouse position
-  push();
-  let txt = round(mouseX) + ", " + round(mouseY);
-  fill(0, 255, 0);
-  text(txt, mouseX, mouseY);
-  pop();
+  image(clownImg[currentImage], width / 1.75, height * 1.15);
+  if (currentImage < 20) {
+    currentImage++;
+  } else {
+    currentImage = 0;
+  }
 }
+
 
 
 
