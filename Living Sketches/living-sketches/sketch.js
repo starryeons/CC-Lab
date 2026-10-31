@@ -2,7 +2,7 @@ let clownImg = [];
 let currentImage = 0;
 
 async function setup() {
-  createCanvas(400, 400);
+  createCanvas(700, 700);
 
   frameRate(5);
   let promises = [];
@@ -17,14 +17,13 @@ function draw() {
   background(90, 20, 75);
   imageMode(CENTER);
 
-  image(clownImg[currentImage], width / 1.75, height * 1.15);
+  image(clownImg[currentImage], width/2, height*.75);
   if (currentImage < 20) {
     currentImage++;
   } else {
     currentImage = 0;
   }
 }
-
 
 
 
