@@ -16,7 +16,7 @@ async function setup() {
 function draw() {
   background(90, 20, 75);
   imageMode(CENTER);
-
+frameRate(map(mouseX, 0, width, 2, 20))
   image(clownImg[currentImage], width/2, height*.75);
   if (currentImage < 19) {
     currentImage++;
