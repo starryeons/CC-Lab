@@ -18,7 +18,7 @@ function draw() {
   imageMode(CENTER);
 
   image(clownImg[currentImage], width/2, height*.75);
-  if (currentImage < 20) {
+  if (currentImage < 19) {
     currentImage++;
   } else {
     currentImage = 0;
