@@ -7,7 +7,7 @@ async function setup() {
   frameRate(5);
   let promises = [];
   for (let i = 1; i <= 20; i++) {
-    let filename = "asset/clown" + i + ".png";
+    let filename = "assets/clown" + i + ".png";
     promises.push(loadImage(filename));
   }
   clownImg = await Promise.all(promises);
